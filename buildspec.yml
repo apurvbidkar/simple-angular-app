@@ -1,16 +1,25 @@
 version: 0.2
+run-as: root
+
+
 phases:
   pre_build:
     commands:
-      - $(aws ecr get-login --no-include-email --region us-east-1)
-      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-      - IMAGE_URI=public.ecr.aws/a5k7m5i8/simple-angular:latest
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 404973048572.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular
   build:
     commands:
-      - docker build --tag   public.ecr.aws/a5k7m5i8/simple-angular:latest .
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t simple-angular:latest .
+      - docker tag simple-angular:latest 404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular:latest      
   post_build:
     commands:
-      - docker push  public.ecr.aws/a5k7m5i8/simple-angular:latest
-      - printf '[{"name":"angular","imageUri":"public.ecr.aws/a5k7m5i8/simple-angular:latest"}]' public.ecr.aws/a5k7m5i8/simple-angular:latest > imagedefinations.json
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s"}]' angular $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
-  files: imagedefinations.json
+    files: imagedefinitions.json
