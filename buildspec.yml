@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+
+  build:
+    commands:
+      - docker build -t simple-angular:latest .
+      - docker tag simple-angular:latest  public.ecr.aws/a5k7m5i8/simple-angular:latest
+  post_build:
+    commands:
+      - docker push public.ecr.aws/a5k7m5i8/simple-angular:latest
+      - printf '[{"name":"angular","imageUri":"%s"}]' public.ecr.aws/a5k7m5i8/simple-angular:latest > imagedefinations.json
+
+artifacts:
+  files: imagedefinations.json
