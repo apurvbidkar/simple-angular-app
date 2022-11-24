@@ -8,6 +8,7 @@ phases:
 
   build:
     commands:
+      - service docker start
       - docker build -t public.ecr.aws/a5k7m5i8/simple-angular:latest .
       - docker tag public.ecr.aws/a5k7m5i8/simple-angular:latest  public.ecr.aws/a5k7m5i8/simple-angular:latest
   post_build:
