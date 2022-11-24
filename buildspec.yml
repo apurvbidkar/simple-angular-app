@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t simple-angular:latest .
+      - docker build -t simple-angular .
       - docker tag simple-angular:latest 404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular:latest      
   post_build:
     commands:
