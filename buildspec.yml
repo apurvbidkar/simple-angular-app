@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt-get update
-      - apt install docker.io
+      - apt-get update -y
+      - apt install docker.io -y
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email --region us-east-1)
