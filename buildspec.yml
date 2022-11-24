@@ -1,18 +1,12 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - apt-get update -y
-      - apt install docker.io -y
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email --region us-east-1)
-      
-
   build:
     commands:
-      - docker build -t public.ecr.aws/a5k7m5i8/simple-angular:latest .
+      - docker build -t simple-angular:latest .
       - docker tag public.ecr.aws/a5k7m5i8/simple-angular:latest  public.ecr.aws/a5k7m5i8/simple-angular:latest
   post_build:
     commands:
