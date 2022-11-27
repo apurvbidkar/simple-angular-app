@@ -1,4 +1,4 @@
-FROM node:16.17.0 AS build 
+FROM 404973048572.dkr.ecr.us-east-1.amazonaws.com/node:latest AS build 
 RUN apt update -y 
 COPY ./  angular
 WORKDIR angular
