@@ -1,6 +1,6 @@
 [
   {
-    "name": "web1",
+    "name": "angular",
     "imageUri": "404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular1:latest"
   }
 ]
