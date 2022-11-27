@@ -5,7 +5,7 @@ WORKDIR angular
 RUN npm install
 RUN npm i
 RUN npm run build
-FROM nginx
+FROM 404973048572.dkr.ecr.us-east-1.amazonaws.com/nginx:latest
 RUN apt update -y
 WORKDIR angular
 COPY --from=build  /angular/dist/* /usr/share/nginx/html/
