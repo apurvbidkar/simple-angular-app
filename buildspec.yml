@@ -11,8 +11,6 @@ phases:
       - echo Building the Docker image...          
       - docker build -t simple-angular1	.
       - docker tag simple-angular1:latest 404973048572.dkr.ecr.us-east-1.amazonaws.com/simple-angular1
-   
-   
   post_build:
     commands:
       - echo Build completed on date
